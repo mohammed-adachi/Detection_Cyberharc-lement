@@ -9,12 +9,12 @@ def load_dataset(file_path):
 
 # Nettoyer les données (supprimer caractères spéciaux, etc.)
 def preprocess_data(df):
-    df['message'] = df['message'].str.lower()  # Convertir en minuscules
-    df['message'] = df['message'].str.replace(r'[^a-zA-Z\s]', '', regex=True)  # Supprimer caractères spéciaux
+    df['tweet_text'] = df['tweet_text'].str.lower()  # Convertir en minuscules
+    df['tweet_text'] = df['tweet_text'].str.replace(r'[^a-zA-Z\s]', '', regex=True)  # Supprimer caractères spéciaux
     return df
 
 if __name__ == "__main__":
-    file_path = "./data/dataser.csv"
+    file_path = "./data/cyberbullying_tweets.csv"
     data = load_dataset(file_path)
     cleaned_data = preprocess_data(data)
     print("Données nettoyées :")

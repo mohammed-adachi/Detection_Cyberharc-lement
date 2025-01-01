@@ -5,6 +5,7 @@ from sklearn.linear_model import LogisticRegression
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 import nltk
 import re
 import pickle
@@ -17,12 +18,14 @@ from sklearn.preprocessing import label_binarize
 from nltk.corpus import stopwords
 import nltk
 from nltk.tokenize import word_tokenize
-from sklearn.metrics import (
+from sklearn.metrics import (precision_score,
     classification_report,
+    f1_score,
     confusion_matrix,
     ConfusionMatrixDisplay,
     log_loss,
     roc_curve,
+    recall_score,
     auc,
     accuracy_score,
 )
@@ -43,9 +46,10 @@ def load_and_clean_data(file_path):
     
     # Load data
     df = pd.read_csv(file_path)
+    print(f"Original shape: {len(df)}")
     
-    if 'tweet_text' not in df.columns:
-        raise ValueError("Column 'tweet_text' is missing from the file.")
+    if 'headline' not in df.columns:
+        raise ValueError("Column headline is missing from the file.")
     
     def clean_text(text):
         # Convert to string and lowercase
@@ -60,7 +64,6 @@ def load_and_clean_data(file_path):
         # Convert emojis to text
         text = emoji.demojize(text)
         text = re.sub(r':', '', text)  # Remove colons from emoji text
-        
         # Convert numeric values to text
         def convert_numbers(match):
             try:
@@ -74,20 +77,19 @@ def load_and_clean_data(file_path):
         
         # Remove punctuation and special characters
         text = re.sub(r'[^a-z\s]', ' ', text)
-        
         # Remove extra whitespace
         text = ' '.join(text.split())
         
         return text
     
     # Apply initial cleaning
-    df['tweet_text'] = df['tweet_text'].apply(clean_text)
+    df['headline'] = df['headline'].apply(clean_text)
     
     # Remove duplicates
-    df = df.drop_duplicates(subset=['tweet_text'])
+    df = df.drop_duplicates(subset=['headline'])
     
     # Tokenization
-    df['tokens'] = df['tweet_text'].apply(word_tokenize)
+    df['tokens'] = df['headline'].apply(word_tokenize)
     
     # Remove stopwords
     df['tokens'] = df['tokens'].apply(lambda tokens: [word for word in tokens if word not in stop_words])
@@ -105,29 +107,28 @@ def load_and_clean_data(file_path):
     df = df[(df['token_count'] >= 3) & (df['token_count'] <= 100)]
     
     # Join tokens back into cleaned text
-    df['cleaned_text'] = df['tokens'].apply(lambda tokens: ' '.join(tokens))
+    df['headline'] = df['tokens'].apply(lambda tokens: ' '.join(tokens))
     
     # Remove empty rows
-    df = df[df['cleaned_text'].str.strip().astype(bool)]
+    df = df[df['headline'].str.strip().astype(bool)]
     
     # Handle missing values
-    df['cleaned_text'] = df['cleaned_text'].fillna('')
+    df['headline'] = df['headline'].fillna('')
     
     # Remove columns used for processing
     df = df.drop(['tokens', 'token_count'], axis=1)
     
-    print(f"Original shape: {len(df)}")
     print(f"After cleaning: {len(df)}")
     
     return df
 # Tracer une matrice de confusion
-# def plot_confusion_matrix(y_test, y_pred, class_names):
-#     cm = confusion_matrix(y_test, y_pred)
-#     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=class_names)
-#     disp.plot(cmap='viridis', xticks_rotation='vertical')
-#     disp.ax_.set_title('Matrice de confusion')
-#     disp.figure_.tight_layout()
-#     plt.show()
+def plot_confusion_matrix(y_test, y_pred, class_names):
+    cm = confusion_matrix(y_test, y_pred)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=class_names)
+    disp.plot(cmap='viridis', xticks_rotation='vertical')
+    disp.ax_.set_title('Matrice de confusion')
+    disp.figure_.tight_layout()
+    plt.show()
 
 # Tracer les courbes ROC
 # def plot_roc_curves(y_test, y_pred_prob, class_names):
@@ -147,29 +148,38 @@ def load_and_clean_data(file_path):
 
 # Entraîner un modèle et évaluer
 def train_and_evaluate_model(df, model_path):
-    X = df['tweet_text']
-    y = df['cyberbullying_type']  # Multicatégories
+    X = df['headline']
+    y = df['label']  # Multicatégories
     
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1, 2))
     X_train_tfidf = vectorizer.fit_transform(X_train)
     X_test_tfidf = vectorizer.transform(X_test)
     
-    model = LogisticRegression(max_iter=200)
+    model = LogisticRegression(max_iter=100)
     model.fit(X_train_tfidf, y_train)
     
     y_pred = model.predict(X_test_tfidf)
     y_pred_prob = model.predict_proba(X_test_tfidf)
     
-    print("Rapport de classification :")
+    print("Rapport de classification détaillé :")
     print(classification_report(y_test, y_pred))
     
+    # Métriques globales (moyenne pondérée pour le multi-classe)
+    precision = precision_score(y_test, y_pred, average='weighted')
+    recall = recall_score(y_test, y_pred, average='weighted')
+    f1 = f1_score(y_test, y_pred, average='weighted')
     accuracy = accuracy_score(y_test, y_pred)
-    print(f"Accuracy : {accuracy:.2f}")
-    
     loss = log_loss(y_test, y_pred_prob)
-    print(f"Log-loss : {loss:.4f}")
     
+    print("\nMétriques globales :")
+    print(f"Précision : {precision:.3f}")
+    print(f"Rappel : {recall:.3f}")
+    print(f"Score F1 : {f1:.3f}")
+    print(f"Accuracy : {accuracy:.3f}")
+    print(f"Log-loss : {loss:.4f}")
+    plot_confusion_matrix(y_test, y_pred, model.classes_)
+
     # plot_confusion_matrix(y_test, y_pred, model.classes_)
     
     with open(model_path, 'wb') as f:
@@ -180,28 +190,33 @@ def train_and_evaluate_model(df, model_path):
 def classify_message(model_path, message):
     with open(model_path, 'rb') as f:
         model, vectorizer = pickle.load(f)
+         # Add this label mapping
+    label_mapping = {
+        -1.0: "other_cyberbullying",
+        0.0: "not_cyberbullying"
+    }
     message_cleaned = ''.join([char for char in message.lower() if char.isalnum() or char.isspace()])
     message_vector = vectorizer.transform([message_cleaned])
     probabilities = model.predict_proba(message_vector)[0]
     predicted_class = model.classes_[probabilities.argmax()]
     predicted_prob = probabilities.max()
-    return predicted_class, probabilities, predicted_prob, model
+    probabilities_mapped = {label_mapping[class_]: prob for class_, prob in zip(model.classes_, probabilities)}
+    return  label_mapping[predicted_class], probabilities_mapped, predicted_prob, model
 
-# Main
-if __name__ == "__main__":
-    dataset_path = './data/cyberbullying_tweets.csv'  # Remplacez par le chemin réel
-    model_path = './app/model/model.pkl'
+# if __name__ == "__main__":
+#     dataset_path = './data/cyberbullying_tweets.csv'  # Remplacez par le chemin réel
+#     model_path = './app/model/model.pkl'
     
-    df = load_and_clean_data(dataset_path)
-    train_and_evaluate_model(df, model_path)
+#     df = load_and_clean_data(dataset_path)
+#     train_and_evaluate_model(df, model_path)
     
-    print("Entrez un message pour classifier (tapez 'exit' pour quitter) :")
-    while True:
-        user_message = input("Votre message : ")
-        if user_message.lower() == 'exit':
-            print("Au revoir !")
-            break
-        predicted_class, probabilities, predicted_prob, model = classify_message(model_path, user_message)
-        print(f"Classe prédite : {predicted_class}")
-        print(f"Probabilités par classe : {dict(zip(model.classes_, probabilities))}")
-        print(f"Probabilité maximale : {predicted_prob}")
+#     print("Entrez un message pour classifier (tapez 'exit' pour quitter) :")
+#     while True:
+#         user_message = input("Votre message : ")
+#         if user_message.lower() == 'exit':
+#             print("Au revoir !")
+#             break
+#         predicted_class, probabilities_mapped, predicted_prob, model = classify_message(model_path, user_message)
+#         print(f"Classe prédite : {predicted_class}")
+#         print(f"Probabilités par classe : {probabilities_mapped}")
+#         print(f"Probabilité maximale : {predicted_prob}")

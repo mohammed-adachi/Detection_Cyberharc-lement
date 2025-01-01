@@ -49,6 +49,19 @@ const Sidebar = () => {
           React.createElement(
             Link,
             {
+              to: "/MessageInput",
+              className:
+                "block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded",
+            },
+            "MessageInput"
+          )
+        ),
+        React.createElement(
+          "li",
+          null,
+          React.createElement(
+            Link,
+            {
               to: "/settings",
               className:
                 "block px-4 py-2 text-gray-700 hover:bg-gray-200 rounded",

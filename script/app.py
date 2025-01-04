@@ -17,6 +17,7 @@ CORS(app)
 client = MongoClient("mongodb://adachi:adachi@localhost:27017/")  # Connecte-toi à MongoDB localement
 db = client["dbDetectCyberbullying"]  # Nom de la base de données
 collection = db["messages"]   # Supprimer les messages existants
+ collection.drop()
  # Nom de la collection
 dataset_path = './data/cyberbullying_tweets.csv'  # Remplacez par le chemin réel
 model_path = './app/model/model.pkl'
@@ -35,9 +36,10 @@ def add_message():
 
     # Classifier le message
     predicted_class, probabilities_mapped, predicted_prob, model = classify_terminal.classify_message(model_path, data["message"])
-
+    predicted_class, probabilities_mapped ,predicted_prob,model= classify_terminal.classify_message_SVM(model_path, user_message)
     # Créer un document avec les données et la classe prédite
     message_document = {
+        "type algorithm": data["type algorithm"],
         "message": data["message"],
         "cyberbullying_type": predicted_class,
         "probabilities_by_class": probabilities_mapped,

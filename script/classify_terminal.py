@@ -1,7 +1,12 @@
 import pandas as pd
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import cross_val_score
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import GridSearchCV
+from sklearn.feature_selection import chi2
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from sklearn.model_selection import train_test_split
@@ -13,6 +18,7 @@ import emoji
 import num2words
 import unicodedata
 from collections import Counter
+from sklearn.feature_extraction.text import CountVectorizer
 import warnings
 from sklearn.preprocessing import label_binarize
 from nltk.corpus import stopwords
@@ -47,6 +53,7 @@ def load_and_clean_data(file_path):
     # Load data
     df = pd.read_csv(file_path)
     print(f"Original shape: {len(df)}")
+    print(df.head())
     
     if 'headline' not in df.columns:
         raise ValueError("Column headline is missing from the file.")
@@ -93,7 +100,6 @@ def load_and_clean_data(file_path):
     
     # Remove stopwords
     df['tokens'] = df['tokens'].apply(lambda tokens: [word for word in tokens if word not in stop_words])
-    
     # Apply stemming and lemmatization
     def stem_and_lemmatize(tokens):
         stemmed_tokens = [stemmer.stem(token) for token in tokens]
@@ -119,7 +125,7 @@ def load_and_clean_data(file_path):
     df = df.drop(['tokens', 'token_count'], axis=1)
     
     print(f"After cleaning: {len(df)}")
-    
+    print(df.head())
     return df
 # Tracer une matrice de confusion
 def plot_confusion_matrix(y_test, y_pred, class_names):
@@ -147,11 +153,38 @@ def plot_confusion_matrix(y_test, y_pred, class_names):
 #     plt.show()
 
 # Entraîner un modèle et évaluer
+def train_and_evaluate_svm(df, model_path):
+    # Séparation des caractéristiques (X) et des étiquettes (y)
+    X = df['headline']
+    y = pd.to_numeric(df['label'], errors='coerce').fillna(0).astype(int)
+    
+    # Vérifier les valeurs uniques dans la colonne 'label'
+    print(df['label'].unique())
+    
+    # Diviser les données en ensembles d'entraînement et de test
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+    
+    # Initialiser le vectoriseur
+    Vectorizer = CountVectorizer()
+    X_train_vec = Vectorizer.fit_transform(X_train.values)
+
+    # Initialiser le modèle SVM
+    svm_model = SVC(kernel='linear')  # Utilisation d'un noyau linéaire pour une classification binaire
+    svm_model.fit(X_train_vec, y_train)  # Entraînement du modèle
+    
+    # Prédiction sur l'ensemble de test
+    X_test_vec = Vectorizer.transform(X_test)  # Transformation de X_test avec le même vectoriseur
+    y_predict = svm_model.predict(X_test_vec)  # Prédiction des étiquettes sur les données de test
+    
+    # Calcul et affichage de la précision
+    accuracy = accuracy_score(y_test, y_predict)
+    print("Précision SVM : ", accuracy)
+    
 def train_and_evaluate_model(df, model_path):
     X = df['headline']
     y = df['label']  # Multicatégories
     
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42,stratify=y)
     vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1, 2))
     X_train_tfidf = vectorizer.fit_transform(X_train)
     X_test_tfidf = vectorizer.transform(X_test)
@@ -202,21 +235,40 @@ def classify_message(model_path, message):
     predicted_prob = probabilities.max()
     probabilities_mapped = {label_mapping[class_]: prob for class_, prob in zip(model.classes_, probabilities)}
     return  label_mapping[predicted_class], probabilities_mapped, predicted_prob, model
+def classify_message_SVM(model_path, message):
+    # Charger le modèle et le vectoriseur
+    with open(model_path, 'rb') as f:
+        model, vectorizer = pickle.load(f)
+         # Add this label mapping
+    label_mapping = {
+        -1.0: "other_cyberbullying",
+        0.0: "not_cyberbullying"
+    }
+    message_cleaned = ''.join([char for char in message.lower() if char.isalnum() or char.isspace()])
+    message_vector = vectorizer.transform([message_cleaned])
+    probabilities = model.predict_proba(message_vector)[0]
+    predicted_class = model.classes_[probabilities.argmax()]
+    predicted_prob = probabilities.max()
+    probabilities_mapped = {label_mapping[class_]: prob for class_, prob in zip(model.classes_, probabilities)}
+    return  label_mapping[predicted_class], probabilities_mapped, predicted_prob, model
 
-# if __name__ == "__main__":
-#     dataset_path = './data/cyberbullying_tweets.csv'  # Remplacez par le chemin réel
-#     model_path = './app/model/model.pkl'
+
+if __name__ == "__main__":
+    dataset_path = './data/cyberbullying_tweets.csv'  # Remplacez par le chemin réel
     
-#     df = load_and_clean_data(dataset_path)
-#     train_and_evaluate_model(df, model_path)
+    model_path = './app/model/model.pkl'
     
-#     print("Entrez un message pour classifier (tapez 'exit' pour quitter) :")
-#     while True:
-#         user_message = input("Votre message : ")
-#         if user_message.lower() == 'exit':
-#             print("Au revoir !")
-#             break
-#         predicted_class, probabilities_mapped, predicted_prob, model = classify_message(model_path, user_message)
-#         print(f"Classe prédite : {predicted_class}")
-#         print(f"Probabilités par classe : {probabilities_mapped}")
-#         print(f"Probabilité maximale : {predicted_prob}")
+    df = load_and_clean_data(dataset_path)
+ #   train_and_evaluate_model(df, model_path)
+    train_and_evaluate_svm(df, model_path)
+    print("Entrez un message pour classifier (tapez 'exit' pour quitter) :")
+    while True:
+        user_message = input("Votre message : ")
+        if user_message.lower() == 'exit':
+           print("Au revoir !")
+           break
+    #    predicted_class, probabilities_mapped, predicted_prob, model = classify_message(model_path, user_message)
+    #    predicted_class, probabilities_mapped ,predicted_prob,model= classify_message_SVM(model_path, user_message) 
+        print(f"Classe prédite : {predicted_class}")
+        print(f"Classe prédite : {predicted_prob}")
+        print(f"Probabilités par classe : {probabilities_mapped}")

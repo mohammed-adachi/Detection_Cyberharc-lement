@@ -16,14 +16,20 @@ CORS(app)
 # Connexion à MongoDB (remplacez par l'URL de votre MongoDB si nécessaire)
 client = MongoClient("mongodb://adachi:adachi@localhost:27017/")  # Connecte-toi à MongoDB localement
 db = client["dbDetectCyberbullying"]  # Nom de la base de données
-collection = db["messages"]   # Supprimer les messages existants
- collection.drop()
+collection = db["messages"]
+   # Supprimer les messages existants
  # Nom de la collection
 dataset_path = './data/cyberbullying_tweets.csv'  # Remplacez par le chemin réel
 model_path = './app/model/model.pkl'
+model_paths='./app/model/svm_model.pkl'
+#  #   train_and_evaluate_model(df, model_path)
+#     svm_model, vectorizer =  train_and_evaluate_svm(df, model_path)
+
 df = classify_terminal.load_and_clean_data(dataset_path)
 classify_terminal.train_and_evaluate_model(df, model_path)
+svm_model, vectorizer = classify_terminal.train_and_evaluate_svm(df, model_paths)
 model = joblib.load(model_path)
+models = joblib.load(model_paths)
 # Route pour insérer un message
 @app.route("/add_message", methods=["POST"])
 def add_message():
@@ -35,15 +41,23 @@ def add_message():
         return jsonify({"error": "Le champ 'message' est nécessaire."}), 400
 
     # Classifier le message
-    predicted_class, probabilities_mapped, predicted_prob, model = classify_terminal.classify_message(model_path, data["message"])
-    predicted_class, probabilities_mapped ,predicted_prob,model= classify_terminal.classify_message_SVM(model_path, user_message)
+    predicted_class, probabilities_mappede, predicted_prob, model = classify_terminal.classify_message(model_path, data["message"])
+    predicted_label, probabilities_mapped, confidence, _= classify_terminal.classify_message_SVM(model_paths, data["message"])
     # Créer un document avec les données et la classe prédite
     message_document = {
-        "type algorithm": data["type algorithm"],
         "message": data["message"],
-        "cyberbullying_type": predicted_class,
-        "probabilities_by_class": probabilities_mapped,
-        "max_probability": predicted_prob
+        "results": {
+            "Logistic Regression": {
+                "type_de_cyberharcèlement": predicted_class,
+                "probabilités_par_classe": probabilities_mappede,
+                "probabilité_maximale": predicted_prob
+            },
+            "SVM": {
+                "type_de_cyberharcèlement": predicted_label,
+                "probabilités_par_classe": probabilities_mapped,
+                "probabilité_maximale": confidence
+            }
+        }
     }
 
     # Insérer le document dans la collection MongoDB
@@ -74,12 +88,7 @@ def get_message_by_name(name_message):
     message["_id"] = str(message["_id"])
 
     # Retourner les détails du message
-    return jsonify({
-        "message": message["message"],
-        "cyberbullying_type": message["cyberbullying_type"],
-        "probabilities_by_class": message["probabilities_by_class"],
-        "max_probability": message["max_probability"]
-    }), 200
+    return jsonify(message), 200
 # Lancer l'application Flask
 if __name__ == "__main__":
     app.run(debug=True)

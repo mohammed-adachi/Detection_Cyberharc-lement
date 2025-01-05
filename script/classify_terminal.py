@@ -187,12 +187,12 @@ def train_and_evaluate_svm(df, model_path):
     print(f"Log-loss : {loss:.4f}")
     
     # Plot confusion matrix
-    cm = confusion_matrix(y_test, y_pred)
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=svm_model.classes_)
-    disp.plot(cmap='viridis', xticks_rotation='vertical')
-    plt.title('Matrice de confusion - SVM')
-    plt.tight_layout()
-    plt.show()
+    # cm = confusion_matrix(y_test, y_pred)
+    # disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=svm_model.classes_)
+    # disp.plot(cmap='viridis', xticks_rotation='vertical')
+    # plt.title('Matrice de confusion - SVM')
+    # plt.tight_layout()
+    # plt.show()
     
     model_data = {
         'model': svm_model,
@@ -269,8 +269,8 @@ def classify_message_SVM(model_path, message):
     vectorizer = model_data['vectorizer']
 
     label_mapping = {
-        0.0: "not_cyberbullying",
-        -1.0: "other_cyberbullying"
+        0: "not_cyberbullying",
+        -1: "other_cyberbullying"
     }
     
     # Nettoyer le message
@@ -284,8 +284,7 @@ def classify_message_SVM(model_path, message):
     probabilities = model.predict_proba(message_vector)[0]
     
     predicted_label = label_mapping.get(predicted_class, "unknown")
-    probabilities_mapped = {label_mapping.get(i, f"class_{i}"): prob for i, prob in enumerate(probabilities)}
-    
+    probabilities_mapped ={label_mapping[class_]: prob for class_, prob in zip(model.classes_, probabilities)} 
     return predicted_label, probabilities_mapped, np.max(probabilities), model
 
 

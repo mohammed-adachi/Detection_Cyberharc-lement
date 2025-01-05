@@ -274,8 +274,12 @@ const MessageInput = ({ onSubmit }) => {
     return (
       <Card className="h-full">
         <CardHeader>
-          <Typography variant="h6" className="text-center font-bold">
-            {algorithmName}
+          <Typography variant="h1" className="text-center font-bold">
+            {algorithmName === "logistic_regression"
+              ? "Partie Droite : Régression Logistique"
+              : algorithmName === "svm"
+              ? "Partie Gauche : SVM"
+              : "Algorithme"}
           </Typography>
         </CardHeader>
         <CardContent>
@@ -372,9 +376,15 @@ const MessageInput = ({ onSubmit }) => {
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
+          <div class="bg-blue-500 text-white text-center font-semibold rounded-lg shadow-lg p-4">
+            logistic_regression
+          </div>
           {renderAlgorithmCard("Logistic Regression")}
         </Grid>
         <Grid item xs={12} md={6}>
+          <div class="bg-blue-500 text-white text-center font-semibold rounded-lg shadow-lg p-4">
+            SVM
+          </div>
           {renderAlgorithmCard("SVM")}
         </Grid>
       </Grid>

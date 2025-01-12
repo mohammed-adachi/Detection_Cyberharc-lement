@@ -1,4 +1,7 @@
 import pandas as pd
+import re,string
+import netoyage
+import  wandb
 import numpy as np
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import cross_val_score
@@ -39,15 +42,25 @@ from sklearn.metrics import (precision_score,
 
 
 def train_and_evaluate_svm(df, model_path):
+    wandb.init(project="news-classification", name="svm-model", config={
+        "test_size": 0.3,
+        "random_state": 42,
+        "kernel": "linear",
+        "max_features": 5000,
+        "ngram_range": (1, 2),
+    })
+    config = wandb.config
+
     X = df['headline']
     y = df['label']
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
-    vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1, 2))
+    print("X",config.test_size)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=config.test_size, random_state=config.random_state)
+    vectorizer = TfidfVectorizer(max_features=config.max_features)
     X_train_vec = vectorizer.fit_transform(X_train)
     X_test_vec = vectorizer.transform(X_test)
     print("y_train",y_train)
     print("X_test_vec",X_test_vec)
-    svm_model = SVC(kernel='linear', probability=True, random_state=42)
+    svm_model = SVC(kernel=config.kernel, probability=True, random_state=config.random_state)
     svm_model.fit(X_train_vec, y_train)
     y_pred = svm_model.predict(X_test_vec)
     y_pred_prob = svm_model.predict_proba(X_test_vec)
@@ -84,6 +97,7 @@ def train_and_evaluate_svm(df, model_path):
         pickle.dump(model_data, f)
     
     print(f"Modèle sauvegardé dans {model_path}")
+    wandb.finish()
     return svm_model, vectorizer
 
     
@@ -124,3 +138,13 @@ def train_and_evaluate_model(df, model_path):
     with open(model_path, 'wb') as f:
         pickle.dump((model, vectorizer), f)
     print(f"Modèle sauvegardé dans {model_path}")
+
+
+if __name__ == "__main__":
+    dataset_path = './data/cyberbullying_tweets.csv'  # Remplacez par le chemin réel
+    model_path = './app/model/svm_model.pkl'
+
+    
+    df =netoyage.load_and_clean_data(dataset_path)
+ #   train_and_evaluate_model(df, model_path)
+    svm_model, vectorizer =  train_and_evaluate_svm(df, model_path)

@@ -1,52 +1,98 @@
-import joblib
-from datetime import datetime
+import wandb
+from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import Pipeline
-from sklearn.model_selection import GridSearchCV, StratifiedKFold, train_test_split
-from sklearn.feature_selection import SelectKBest, chi2
+from sklearn.svm import SVC
+from sklearn.metrics import classification_report, precision_score, recall_score, f1_score, accuracy_score, log_loss
+import pickle
+import netoyage  # Assurez-vous que ce module est correct
 
-# Load your data here.  Replace 'X_train' and 'y_train' with your actual data.
-# Example:
-# from sklearn.datasets import fetch_20newsgroups
-# newsgroups_train = fetch_20newsgroups(subset='train')
-# X_train = newsgroups_train.data
-# y_train = newsgroups_train.target
-
-
-pipeline = Pipeline([
-    ('tfidf', TfidfVectorizer(max_features=10000, ngram_range=(1, 2), min_df=2)),
-    ('feature_selection', SelectKBest(chi2, k=5000)),
-    ('clf', LogisticRegression(max_iter=1000, class_weight='balanced'))
-])
-
-param_grid = {
-    'feature_selection__k': [3000, 5000],
-    'clf__C': [0.1, 1.0, 10.0],
+# Définir la configuration du Sweep pour optimiser les hyperparamètres
+sweep_configuration = {
+    'method': 'grid',  # Recherche exhaustive des combinaisons d'hyperparamètres
+    'name': 'svm-hyperparameter-tuning',
+    'metric': {
+        'name': 'accuracy',  # Nous voulons maximiser la précision
+        'goal': 'maximize'
+    },
+    'parameters': {
+        'kernel': {
+            'values': ['linear', 'rbf']  # Teste les noyaux 'linear' et 'rbf'
+        },
+        'max_features': {
+            'values': [5000, 10000]  # Nombre de caractéristiques maximales à utiliser pour le TF-IDF
+        },
+        'test_size': {
+            'values': [0.2, 0.3]  # Taille de l'ensemble de test
+        }
+    }
 }
 
-X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
+# Créer le Sweep avec wandb
+sweep_id = wandb.sweep(sweep_configuration, project="news-classification")
 
-grid_search = GridSearchCV(
-    pipeline,
-    param_grid,
-    cv=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
-    scoring='f1_weighted',
-    n_jobs=-1,
-    verbose=1
-)
+def train_and_evaluate_svm():
+    # Initialisation de wandb avec les hyperparamètres du Sweep
+    wandb.init(project="news-classification", name="svm-model", config={})
+    config = wandb.config
 
-grid_search.fit(X_train, y_train)
-best_model = grid_search.best_estimator_
+    # Chargement et préparation des données
+    dataset_path = './data/cyberbullying_tweets.csv'  # Remplacez par le chemin réel
+    df = netoyage.load_and_clean_data(dataset_path)
+    X = df['headline']
+    y = df['label']
 
-# Early stopping
-best_score = grid_search.best_score_
-val_score = best_model.score(X_val, y_val)
-if val_score < best_score * 0.95:
-    print("Warning: Possible overfitting. Consider reducing model complexity.")
+    print("Test Size:", config.test_size)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=config.test_size, random_state=42)
+    
+    # Initialisation du vectorizer TF-IDF
+    vectorizer = TfidfVectorizer(max_features=config.max_features,  ngram_range=(1, 2))
+    X_train_vec = vectorizer.fit_transform(X_train)
+    X_test_vec = vectorizer.transform(X_test)
 
-model_version = datetime.now().strftime("%Y%m%d_%H%M%S")
-model_filename = f"model_{model_version}.joblib"
-joblib.dump(best_model, model_filename)
-print(f"Model saved as {model_filename}")
+    # Création du modèle SVM avec les paramètres du Sweep
+    svm_model = SVC(kernel=config.kernel, probability=True, random_state=42)
+    svm_model.fit(X_train_vec, y_train)
+    
+    # Prédictions
+    y_pred = svm_model.predict(X_test_vec)
+    y_pred_prob = svm_model.predict_proba(X_test_vec)
+    
+    # Rapport de classification
+    print("Rapport de classification détaillé :")
+    print(classification_report(y_test, y_pred))
+    
+    # Calcul des métriques globales
+    precision = precision_score(y_test, y_pred, average='weighted')
+    recall = recall_score(y_test, y_pred, average='weighted')
+    f1 = f1_score(y_test, y_pred, average='weighted')
+    accuracy = accuracy_score(y_test, y_pred)
+    loss = log_loss(y_test, y_pred_prob)
+    
+    print("\nMétriques globales :")
+    print(f"Précision : {precision:.3f}")
+    print(f"Rappel : {recall:.3f}")
+    print(f"Score F1 : {f1:.3f}")
+    print(f"Accuracy : {accuracy:.3f}")
+    print(f"Log-loss : {loss:.4f}")
+    
+    # Sauvegarde du modèle
+    model_data = {
+        'model': svm_model,
+        'vectorizer': vectorizer
+    }
+    model_path = './app/model/svm_model.pkl'
+    with open(model_path, 'wb') as f:
+        pickle.dump(model_data, f)
+    
+    print(f"Modèle sauvegardé dans {model_path}")
+    
+    # Fin de l'expérience wandb
+    wandb.finish()
 
+# Fonction pour exécuter le Sweep et entraîner le modèle avec chaque combinaison d'hyperparamètres
+def run_sweep():
+    wandb.agent(sweep_id, function=train_and_evaluate_svm)
+
+# Lancer le Sweep
+if __name__ == "__main__":
+    run_sweep()

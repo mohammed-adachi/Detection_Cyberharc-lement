@@ -1,0 +1,31 @@
+{
+  "os": "Windows-10-10.0.19045-SP0",
+  "python": "CPython 3.12.4",
+  "startedAt": "2025-01-19T11:41:21.583457Z",
+  "program": "C:\\Users\\DeLL\\Documents\\masterIA S1\\Intro IA\\min_porject\\script\\train-and-evaluation-model.py",
+  "codePath": "script\\train-and-evaluation-model.py",
+  "git": {
+    "remote": "https://github.com/mohammed-adachi/Detection_Cyberharc-lement.git",
+    "commit": "77c41d70a2a16f94e17355c80a2dcc5303be39e2"
+  },
+  "email": "mohammed.adachi@usmba.ac.ma",
+  "root": "C:\\Users\\DeLL\\Documents\\masterIA S1\\Intro IA\\min_porject",
+  "host": "DESKTOP-GLTKCUH",
+  "executable": "C:\\Users\\DeLL\\Documents\\masterIA S1\\Intro IA\\min_porject\\myenv\\Scripts\\python.exe",
+  "codePathLocal": "script\\train-and-evaluation-model.py",
+  "cpu_count": 2,
+  "cpu_count_logical": 4,
+  "disk": {
+    "/": {
+      "total": "255450935296",
+      "used": "205128462336"
+    }
+  },
+  "memory": {
+    "total": "8216576000"
+  },
+  "cpu": {
+    "count": 2,
+    "countLogical": 4
+  }
+}

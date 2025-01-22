@@ -1,0 +1,15 @@
+{"time":"2025-01-11T14:46:19.2028+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.2","symlink path":"C:\\Users\\DeLL\\Documents\\masterIA S1\\Intro IA\\min_porject\\wandb\\run-20250111_144618-p79varty\\logs\\debug-core.log"}
+{"time":"2025-01-11T14:46:19.7761786+01:00","level":"INFO","msg":"created new stream","id":"p79varty"}
+{"time":"2025-01-11T14:46:19.7761786+01:00","level":"INFO","msg":"stream: started","id":"p79varty"}
+{"time":"2025-01-11T14:46:19.7789469+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"p79varty"}
+{"time":"2025-01-11T14:46:19.7823981+01:00","level":"INFO","msg":"handler: started","stream_id":"p79varty"}
+{"time":"2025-01-11T14:46:19.7823981+01:00","level":"INFO","msg":"sender: started","stream_id":"p79varty"}
+{"time":"2025-01-11T14:46:20.2570318+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-11T14:46:20.6897386+01:00","level":"INFO","msg":"stream: closing","id":"p79varty"}
+{"time":"2025-01-11T14:46:20.6953318+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-01-11T14:46:20.6975844+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-01-11T14:46:21.6235549+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-11T14:46:21.9713998+01:00","level":"INFO","msg":"handler: closed","stream_id":"p79varty"}
+{"time":"2025-01-11T14:46:21.9713998+01:00","level":"INFO","msg":"sender: closed","stream_id":"p79varty"}
+{"time":"2025-01-11T14:46:21.9713998+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"p79varty"}
+{"time":"2025-01-11T14:46:21.9719538+01:00","level":"INFO","msg":"stream: closed","id":"p79varty"}

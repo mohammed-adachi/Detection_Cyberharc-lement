@@ -1,0 +1,16 @@
+{"time":"2025-01-11T15:35:07.6910438+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.2","symlink path":"C:\\Users\\DeLL\\Documents\\masterIA S1\\Intro IA\\min_porject\\wandb\\run-20250111_153506-uereobk5\\logs\\debug-core.log"}
+{"time":"2025-01-11T15:35:08.590177+01:00","level":"INFO","msg":"created new stream","id":"uereobk5"}
+{"time":"2025-01-11T15:35:08.590177+01:00","level":"INFO","msg":"stream: started","id":"uereobk5"}
+{"time":"2025-01-11T15:35:08.5916461+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"uereobk5"}
+{"time":"2025-01-11T15:35:08.5921609+01:00","level":"INFO","msg":"handler: started","stream_id":"uereobk5"}
+{"time":"2025-01-11T15:35:08.5921609+01:00","level":"INFO","msg":"sender: started","stream_id":"uereobk5"}
+{"time":"2025-01-11T15:35:08.9764155+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-11T15:35:57.8525925+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-01-11T15:35:57.8591464+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-01-11T15:35:58.7738617+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-11T15:35:58.8614692+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading summary, console lines 67-84","runtime_seconds":0.0863759}],"total_operations":1}}
+{"time":"2025-01-11T15:36:00.1174065+01:00","level":"INFO","msg":"stream: closing","id":"uereobk5"}
+{"time":"2025-01-11T15:36:00.1174065+01:00","level":"INFO","msg":"handler: closed","stream_id":"uereobk5"}
+{"time":"2025-01-11T15:36:00.1174065+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"uereobk5"}
+{"time":"2025-01-11T15:36:00.1199808+01:00","level":"INFO","msg":"sender: closed","stream_id":"uereobk5"}
+{"time":"2025-01-11T15:36:00.1204922+01:00","level":"INFO","msg":"stream: closed","id":"uereobk5"}

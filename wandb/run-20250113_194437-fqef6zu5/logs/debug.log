@@ -1,0 +1,30 @@
+2025-01-13 19:44:37,313 INFO    Thread-23 (_run_job):19832 [wandb_setup.py:_flush():68] Current SDK version is 0.19.2
+2025-01-13 19:44:37,314 INFO    Thread-23 (_run_job):19832 [wandb_setup.py:_flush():68] Configure stats pid to 19832
+2025-01-13 19:44:37,314 INFO    Thread-23 (_run_job):19832 [wandb_setup.py:_flush():68] Loading settings from C:\Users\DeLL\.config\wandb\settings
+2025-01-13 19:44:37,314 INFO    Thread-23 (_run_job):19832 [wandb_setup.py:_flush():68] Loading settings from C:\Users\DeLL\Documents\masterIA S1\Intro IA\min_porject\wandb\settings
+2025-01-13 19:44:37,314 INFO    Thread-23 (_run_job):19832 [wandb_setup.py:_flush():68] Loading settings from environment variables
+2025-01-13 19:44:37,314 INFO    Thread-23 (_run_job):19832 [wandb_init.py:_log_setup():523] Logging user logs to C:\Users\DeLL\Documents\masterIA S1\Intro IA\min_porject\wandb\run-20250113_194437-fqef6zu5\logs\debug.log
+2025-01-13 19:44:37,315 INFO    Thread-23 (_run_job):19832 [wandb_init.py:_log_setup():524] Logging internal logs to C:\Users\DeLL\Documents\masterIA S1\Intro IA\min_porject\wandb\run-20250113_194437-fqef6zu5\logs\debug-internal.log
+2025-01-13 19:44:37,315 INFO    Thread-23 (_run_job):19832 [wandb_init.py:init():641] calling init triggers
+2025-01-13 19:44:37,315 INFO    Thread-23 (_run_job):19832 [wandb_init.py:init():647] wandb.init called with sweep_config: {'kernel': 'linear', 'max_features': 10000, 'test_size': 0.3}
+config: {}
+2025-01-13 19:44:37,316 INFO    Thread-23 (_run_job):19832 [wandb_init.py:init():674] starting backend
+2025-01-13 19:44:38,321 INFO    Thread-23 (_run_job):19832 [wandb_init.py:init():678] sending inform_init request
+2025-01-13 19:44:38,347 INFO    Thread-23 (_run_job):19832 [backend.py:_multiprocessing_setup():104] multiprocessing start_methods=spawn, using: spawn
+2025-01-13 19:44:38,348 INFO    Thread-23 (_run_job):19832 [wandb_init.py:init():693] backend started and connected
+2025-01-13 19:44:38,351 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_config_callback():1283] config_cb None None {'kernel': 'linear', 'max_features': 10000, 'test_size': 0.3}
+2025-01-13 19:44:38,362 INFO    Thread-23 (_run_job):19832 [wandb_init.py:init():786] updated telemetry
+2025-01-13 19:44:38,498 INFO    Thread-23 (_run_job):19832 [wandb_init.py:init():818] communicating run to backend with 90.0 second timeout
+2025-01-13 19:44:39,151 INFO    Thread-23 (_run_job):19832 [wandb_init.py:init():868] starting run threads in backend
+2025-01-13 19:44:39,570 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_console_start():2415] atexit reg
+2025-01-13 19:44:39,571 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_redirect():2265] redirect: wrap_raw
+2025-01-13 19:44:39,572 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_redirect():2330] Wrapping output streams.
+2025-01-13 19:44:39,572 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_redirect():2355] Redirects installed.
+2025-01-13 19:44:39,574 INFO    Thread-23 (_run_job):19832 [wandb_init.py:init():910] run started, returning control to user process
+2025-01-13 19:46:56,588 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_finish():2140] finishing run mohammed-adachi-education/news-classification/fqef6zu5
+2025-01-13 19:46:56,588 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_atexit_cleanup():2380] got exitcode: 0
+2025-01-13 19:46:56,589 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_restore():2362] restore
+2025-01-13 19:46:56,591 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_restore():2368] restore done
+2025-01-13 19:47:00,747 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_footer_history_summary_info():3984] rendering history
+2025-01-13 19:47:00,747 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_footer_history_summary_info():4016] rendering summary
+2025-01-13 19:47:00,771 INFO    Thread-23 (_run_job):19832 [wandb_run.py:_footer_sync_info():3945] logging synced files

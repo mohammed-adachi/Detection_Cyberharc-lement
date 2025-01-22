@@ -1,0 +1,16 @@
+{"time":"2025-01-13T13:24:37.8365958+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.2","symlink path":"C:\\Users\\DeLL\\Documents\\masterIA S1\\Intro IA\\min_porject\\wandb\\run-20250113_132435-rww77vth\\logs\\debug-core.log"}
+{"time":"2025-01-13T13:24:38.2583241+01:00","level":"INFO","msg":"created new stream","id":"rww77vth"}
+{"time":"2025-01-13T13:24:38.2583241+01:00","level":"INFO","msg":"stream: started","id":"rww77vth"}
+{"time":"2025-01-13T13:24:38.2589577+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"rww77vth"}
+{"time":"2025-01-13T13:24:38.2589577+01:00","level":"INFO","msg":"sender: started","stream_id":"rww77vth"}
+{"time":"2025-01-13T13:24:38.2594887+01:00","level":"INFO","msg":"handler: started","stream_id":"rww77vth"}
+{"time":"2025-01-13T13:24:38.6850625+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-13T13:26:02.4534436+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-01-13T13:26:02.4565123+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-01-13T13:26:03.2324376+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-13T13:26:03.4597693+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading summary, console lines 67-84","runtime_seconds":0.2266021}],"total_operations":1}}
+{"time":"2025-01-13T13:26:04.7486816+01:00","level":"INFO","msg":"stream: closing","id":"rww77vth"}
+{"time":"2025-01-13T13:26:04.7486816+01:00","level":"INFO","msg":"handler: closed","stream_id":"rww77vth"}
+{"time":"2025-01-13T13:26:04.7486816+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"rww77vth"}
+{"time":"2025-01-13T13:26:04.7964164+01:00","level":"INFO","msg":"sender: closed","stream_id":"rww77vth"}
+{"time":"2025-01-13T13:26:04.8089376+01:00","level":"INFO","msg":"stream: closed","id":"rww77vth"}

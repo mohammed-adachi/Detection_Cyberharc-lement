@@ -1,0 +1,45 @@
+Original shape: 18149
+                                            headline  label
+0  cock  suck before you piss around6666888 on my...   -1.0
+1  you are  gay or antisemmitian archangel white ...   -1.0
+2            fuck your filthy mother in the ass  dry   -1.0
+3  get fuck  ed up  get fuck  ed up got a drink t...   -1.0
+4  stupid peace of  shit  stop deleting my stuff ...   -1.0
+                                            headline  label
+0                         cock suck piss around work   -1.0
+1  gay antisemmitian archangel white tiger meow g...   -1.0
+2                         fuck filthy mother ass dry   -1.0
+3  get fuck ed get fuck ed got drink cant put get...   -1.0
+4  stupid peace shit stop deleting stuff ass hole...   -1.0
+                                            headline  label                                             tokens
+0                         cock suck piss around work   -1.0                   [cock, suck, piss, around, work]
+1  gay antisemmitian archangel white tiger meow g...   -1.0  [gay, antisemmitian, archangel, white, tiger, ...
+2                         fuck filthi mother ass dri   -1.0                   [fuck, filthi, mother, ass, dri]
+3  get fuck ed get fuck ed got drink cant put get...   -1.0  [get, fuck, ed, get, fuck, ed, got, drink, can...
+4  stupid peac shit stop delet stuff ass hole go ...   -1.0  [stupid, peac, shit, stop, delet, stuff, ass, ...
+After cleaning: 15809
+                                            headline  label
+0                         cock suck piss around work   -1.0
+1  gay antisemmitian archangel white tiger meow g...   -1.0
+2                         fuck filthi mother ass dri   -1.0
+3  get fuck ed get fuck ed got drink cant put get...   -1.0
+4  stupid peac shit stop delet stuff ass hole go ...   -1.0
+Test Size: 0.2
+Rapport de classification détaillé :
+              precision    recall  f1-score   support
+
+        -1.0       0.94      0.93      0.94      1932
+         0.0       0.89      0.91      0.90      1230
+
+    accuracy                           0.92      3162
+   macro avg       0.92      0.92      0.92      3162
+weighted avg       0.92      0.92      0.92      3162
+
+
+Métriques globales :
+Précision : 0.925
+Rappel : 0.924
+Score F1 : 0.924
+Accuracy : 0.924
+Log-loss : 0.2060
+Modèle sauvegardé dans ./app/model/svm_model.pkl

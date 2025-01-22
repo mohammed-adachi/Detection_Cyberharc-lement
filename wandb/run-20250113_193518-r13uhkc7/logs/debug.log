@@ -1,0 +1,23 @@
+2025-01-13 19:35:18,462 INFO    Thread-33 (_run_job):9812 [wandb_setup.py:_flush():68] Current SDK version is 0.19.2
+2025-01-13 19:35:18,462 INFO    Thread-33 (_run_job):9812 [wandb_setup.py:_flush():68] Configure stats pid to 9812
+2025-01-13 19:35:18,463 INFO    Thread-33 (_run_job):9812 [wandb_setup.py:_flush():68] Loading settings from C:\Users\DeLL\.config\wandb\settings
+2025-01-13 19:35:18,463 INFO    Thread-33 (_run_job):9812 [wandb_setup.py:_flush():68] Loading settings from C:\Users\DeLL\Documents\masterIA S1\Intro IA\min_porject\wandb\settings
+2025-01-13 19:35:18,463 INFO    Thread-33 (_run_job):9812 [wandb_setup.py:_flush():68] Loading settings from environment variables
+2025-01-13 19:35:18,463 INFO    Thread-33 (_run_job):9812 [wandb_init.py:_log_setup():523] Logging user logs to C:\Users\DeLL\Documents\masterIA S1\Intro IA\min_porject\wandb\run-20250113_193518-r13uhkc7\logs\debug.log
+2025-01-13 19:35:18,464 INFO    Thread-33 (_run_job):9812 [wandb_init.py:_log_setup():524] Logging internal logs to C:\Users\DeLL\Documents\masterIA S1\Intro IA\min_porject\wandb\run-20250113_193518-r13uhkc7\logs\debug-internal.log
+2025-01-13 19:35:18,464 INFO    Thread-33 (_run_job):9812 [wandb_init.py:init():641] calling init triggers
+2025-01-13 19:35:18,464 INFO    Thread-33 (_run_job):9812 [wandb_init.py:init():647] wandb.init called with sweep_config: {'kernel': 'linear', 'max_features': 10000, 'ngram_range': [1, 1], 'test_size': 0.3}
+config: {}
+2025-01-13 19:35:18,464 INFO    Thread-33 (_run_job):9812 [wandb_init.py:init():674] starting backend
+2025-01-13 19:35:19,400 INFO    Thread-33 (_run_job):9812 [wandb_init.py:init():678] sending inform_init request
+2025-01-13 19:35:19,415 INFO    Thread-33 (_run_job):9812 [backend.py:_multiprocessing_setup():104] multiprocessing start_methods=spawn, using: spawn
+2025-01-13 19:35:19,416 INFO    Thread-33 (_run_job):9812 [wandb_init.py:init():693] backend started and connected
+2025-01-13 19:35:19,416 INFO    Thread-33 (_run_job):9812 [wandb_run.py:_config_callback():1283] config_cb None None {'kernel': 'linear', 'max_features': 10000, 'ngram_range': [1, 1], 'test_size': 0.3}
+2025-01-13 19:35:19,418 INFO    Thread-33 (_run_job):9812 [wandb_init.py:init():786] updated telemetry
+2025-01-13 19:35:19,538 INFO    Thread-33 (_run_job):9812 [wandb_init.py:init():818] communicating run to backend with 90.0 second timeout
+2025-01-13 19:35:20,165 INFO    Thread-33 (_run_job):9812 [wandb_init.py:init():868] starting run threads in backend
+2025-01-13 19:35:20,980 INFO    Thread-33 (_run_job):9812 [wandb_run.py:_console_start():2415] atexit reg
+2025-01-13 19:35:20,980 INFO    Thread-33 (_run_job):9812 [wandb_run.py:_redirect():2265] redirect: wrap_raw
+2025-01-13 19:35:20,980 INFO    Thread-33 (_run_job):9812 [wandb_run.py:_redirect():2330] Wrapping output streams.
+2025-01-13 19:35:20,981 INFO    Thread-33 (_run_job):9812 [wandb_run.py:_redirect():2355] Redirects installed.
+2025-01-13 19:35:20,983 INFO    Thread-33 (_run_job):9812 [wandb_init.py:init():910] run started, returning control to user process

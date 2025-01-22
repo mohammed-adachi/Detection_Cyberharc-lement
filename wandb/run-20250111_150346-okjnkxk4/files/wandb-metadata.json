@@ -1,0 +1,31 @@
+{
+  "os": "Windows-10-10.0.19045-SP0",
+  "python": "CPython 3.12.4",
+  "startedAt": "2025-01-11T14:03:46.910530Z",
+  "program": "C:\\Users\\DeLL\\Documents\\masterIA S1\\Intro IA\\min_porject\\script\\entrai_eval.py",
+  "codePath": "script\\entrai_eval.py",
+  "git": {
+    "remote": "https://github.com/mohammed-adachi/Detection_Cyberharc-lement.git",
+    "commit": "af1b3295a33d6f2eae2361602a4456be0e95336d"
+  },
+  "email": "mohammed.adachi@usmba.ac.ma",
+  "root": "C:\\Users\\DeLL\\Documents\\masterIA S1\\Intro IA\\min_porject",
+  "host": "DESKTOP-GLTKCUH",
+  "executable": "C:\\Users\\DeLL\\Documents\\masterIA S1\\Intro IA\\min_porject\\myenv\\Scripts\\python.exe",
+  "codePathLocal": "script\\entrai_eval.py",
+  "cpu_count": 2,
+  "cpu_count_logical": 4,
+  "disk": {
+    "/": {
+      "total": "255450935296",
+      "used": "212535750656"
+    }
+  },
+  "memory": {
+    "total": "8216576000"
+  },
+  "cpu": {
+    "count": 2,
+    "countLogical": 4
+  }
+}

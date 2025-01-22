@@ -1,0 +1,12 @@
+wandb_version: 1
+
+kernel:
+  value: linear
+max_features:
+  value: 5000
+ngram_range:
+  value:
+  - 1
+  - 2
+test_size:
+  value: 0.2

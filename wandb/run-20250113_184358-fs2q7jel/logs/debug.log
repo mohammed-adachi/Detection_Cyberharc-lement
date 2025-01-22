@@ -1,0 +1,30 @@
+2025-01-13 18:43:58,724 INFO    MainThread:18176 [wandb_setup.py:_flush():68] Current SDK version is 0.19.2
+2025-01-13 18:43:58,725 INFO    MainThread:18176 [wandb_setup.py:_flush():68] Configure stats pid to 18176
+2025-01-13 18:43:58,725 INFO    MainThread:18176 [wandb_setup.py:_flush():68] Loading settings from C:\Users\DeLL\.config\wandb\settings
+2025-01-13 18:43:58,725 INFO    MainThread:18176 [wandb_setup.py:_flush():68] Loading settings from C:\Users\DeLL\Documents\masterIA S1\Intro IA\min_porject\wandb\settings
+2025-01-13 18:43:58,725 INFO    MainThread:18176 [wandb_setup.py:_flush():68] Loading settings from environment variables
+2025-01-13 18:43:58,726 INFO    MainThread:18176 [wandb_init.py:_log_setup():523] Logging user logs to C:\Users\DeLL\Documents\masterIA S1\Intro IA\min_porject\wandb\run-20250113_184358-fs2q7jel\logs\debug.log
+2025-01-13 18:43:58,726 INFO    MainThread:18176 [wandb_init.py:_log_setup():524] Logging internal logs to C:\Users\DeLL\Documents\masterIA S1\Intro IA\min_porject\wandb\run-20250113_184358-fs2q7jel\logs\debug-internal.log
+2025-01-13 18:43:58,726 INFO    MainThread:18176 [wandb_init.py:init():641] calling init triggers
+2025-01-13 18:43:58,726 INFO    MainThread:18176 [wandb_init.py:init():647] wandb.init called with sweep_config: {}
+config: {}
+2025-01-13 18:43:58,727 INFO    MainThread:18176 [wandb_init.py:init():674] starting backend
+2025-01-13 18:43:59,879 INFO    MainThread:18176 [wandb_init.py:init():678] sending inform_init request
+2025-01-13 18:43:59,999 INFO    MainThread:18176 [backend.py:_multiprocessing_setup():104] multiprocessing start_methods=spawn, using: spawn
+2025-01-13 18:44:00,012 INFO    MainThread:18176 [wandb_init.py:init():693] backend started and connected
+2025-01-13 18:44:00,014 INFO    MainThread:18176 [wandb_init.py:init():786] updated telemetry
+2025-01-13 18:44:00,260 INFO    MainThread:18176 [wandb_init.py:init():818] communicating run to backend with 90.0 second timeout
+2025-01-13 18:44:01,041 INFO    MainThread:18176 [wandb_init.py:init():868] starting run threads in backend
+2025-01-13 18:44:01,350 INFO    MainThread:18176 [wandb_run.py:_console_start():2415] atexit reg
+2025-01-13 18:44:01,351 INFO    MainThread:18176 [wandb_run.py:_redirect():2265] redirect: wrap_raw
+2025-01-13 18:44:01,351 INFO    MainThread:18176 [wandb_run.py:_redirect():2330] Wrapping output streams.
+2025-01-13 18:44:01,351 INFO    MainThread:18176 [wandb_run.py:_redirect():2355] Redirects installed.
+2025-01-13 18:44:01,357 INFO    MainThread:18176 [wandb_init.py:init():910] run started, returning control to user process
+2025-01-13 18:44:01,377 INFO    MainThread:18176 [wandb_run.py:_config_callback():1283] config_cb None None {'kernel': 'rbf', 'C': 1.0, 'gamma': 0.1}
+2025-01-13 18:44:01,423 INFO    MainThread:18176 [wandb_run.py:_finish():2140] finishing run mohammed-adachi-education/svm-classification/fs2q7jel
+2025-01-13 18:44:01,424 INFO    MainThread:18176 [wandb_run.py:_atexit_cleanup():2380] got exitcode: 0
+2025-01-13 18:44:01,424 INFO    MainThread:18176 [wandb_run.py:_restore():2362] restore
+2025-01-13 18:44:01,425 INFO    MainThread:18176 [wandb_run.py:_restore():2368] restore done
+2025-01-13 18:44:03,739 INFO    MainThread:18176 [wandb_run.py:_footer_history_summary_info():3984] rendering history
+2025-01-13 18:44:03,740 INFO    MainThread:18176 [wandb_run.py:_footer_history_summary_info():4016] rendering summary
+2025-01-13 18:44:03,758 INFO    MainThread:18176 [wandb_run.py:_footer_sync_info():3945] logging synced files

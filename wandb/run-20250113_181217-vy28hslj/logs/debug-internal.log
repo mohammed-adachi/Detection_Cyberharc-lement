@@ -1,0 +1,17 @@
+{"time":"2025-01-13T18:12:22.0367474+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.2","symlink path":"C:\\Users\\DeLL\\Documents\\masterIA S1\\Intro IA\\min_porject\\wandb\\run-20250113_181217-vy28hslj\\logs\\debug-core.log"}
+{"time":"2025-01-13T18:12:22.9838392+01:00","level":"INFO","msg":"created new stream","id":"vy28hslj"}
+{"time":"2025-01-13T18:12:22.9838392+01:00","level":"INFO","msg":"stream: started","id":"vy28hslj"}
+{"time":"2025-01-13T18:12:22.9843634+01:00","level":"INFO","msg":"sender: started","stream_id":"vy28hslj"}
+{"time":"2025-01-13T18:12:22.9843634+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"vy28hslj"}
+{"time":"2025-01-13T18:12:22.9838392+01:00","level":"INFO","msg":"handler: started","stream_id":"vy28hslj"}
+{"time":"2025-01-13T18:12:23.2394747+01:00","level":"ERROR","msg":"HTTP error","status":404,"method":"POST","url":"https://api.wandb.ai/graphql"}
+{"time":"2025-01-13T18:12:23.2394747+01:00","level":"ERROR","msg":"sender: upsertRun:","error":"failed to upsert bucket: returned error 404 Not Found: {\"errors\":[{\"message\":\"entity votre-nom-utilisateur not found during upsertBucket\",\"path\":[\"upsertBucket\"]}],\"data\":{\"upsertBucket\":null}}"}
+{"time":"2025-01-13T18:12:23.2636683+01:00","level":"INFO","msg":"stream: closing","id":"vy28hslj"}
+{"time":"2025-01-13T18:12:23.2641927+01:00","level":"ERROR","msg":"sender: upsertConfig: RunRecord is nil"}
+{"time":"2025-01-13T18:12:23.4557934+01:00","level":"ERROR","msg":"HTTP error","status":404,"method":"POST","url":"https://api.wandb.ai/graphql"}
+{"time":"2025-01-13T18:12:23.4557934+01:00","level":"ERROR","msg":"runfiles: CreateRunFiles returned error: returned error 404 Not Found: {\"errors\":[{\"message\":\"entity votre-nom-utilisateur not found during createRunFiles\",\"path\":[\"createRunFiles\"]}],\"data\":{\"createRunFiles\":null}}"}
+{"time":"2025-01-13T18:12:23.4584184+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-13T18:12:23.4589421+01:00","level":"INFO","msg":"handler: closed","stream_id":"vy28hslj"}
+{"time":"2025-01-13T18:12:23.4589421+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"vy28hslj"}
+{"time":"2025-01-13T18:12:23.4592289+01:00","level":"INFO","msg":"sender: closed","stream_id":"vy28hslj"}
+{"time":"2025-01-13T18:12:23.4592289+01:00","level":"INFO","msg":"stream: closed","id":"vy28hslj"}
